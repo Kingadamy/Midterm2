@@ -1,22 +1,52 @@
 #include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
-class DoublyLinkedList {
+
+
+class DoublyLinkedList { //double linked list class
 private:
-struct Node {
-int data;
-Node* prev;
-Node* next;
-Node(int val, Node* p = nullptr, Node* n = nullptr) {
-data = val;
-prev = p;
-next = n;
-}
+    struct Node { // node structure
+        string data; // store string data
+        Node* prev; // points to previous node
+        Node* next; // points to next node
+
+Node(string val, Node* p = nullptr, Node* n = nullptr) { // here we make a constructor for the node
+    data = val;
+    prev = p;
+    next = n;
+    }
 };
-Node* head;
-Node* tail;
+
+
+Node* head;  // pointer to head 
+Node* tail;  // pointer to tail
+int size;    // size of the list
+
+
 public:
-DoublyLinkedList() { head = nullptr; tail = nullptr; }
+DoublyLinkedList() {
+head = nullptr; 
+tail = nullptr; 
+size = 0; 
+}
+
+  void push_back(string v) {  // function to add a node at the end
+        Node* newNode = new Node(v); // create a new node
+        if (!tail) { // if the list is empty
+            head = tail = newNode; // head and tail point to the new node
+        } else {
+            tail->next = newNode; // link the old tail to the new node
+            newNode->prev = tail; // link the new node back to the old tail
+            tail = newNode; // update tail to  new node
+        }
+        size++;
+    }
+
+
+
+
 void insert_after(int value, int position) {
 if (position < 0) {
 cout << "Position must be >= 0." << endl;
@@ -90,16 +120,7 @@ tempPrev->next = temp->next;
 temp->next->prev = tempPrev;
 delete temp;
 }
-void push_back(int v) {
-Node* newNode = new Node(v);
-if (!tail)
-head = tail = newNode;
-else {
-tail->next = newNode;
-newNode->prev = tail;
-tail = newNode;
-}
-}
+
 void push_front(int v) {
 Node* newNode = new Node(v);
 if (!head)
