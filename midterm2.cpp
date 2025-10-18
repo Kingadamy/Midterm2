@@ -2,6 +2,7 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 using namespace std;
 
 
@@ -203,14 +204,33 @@ int main() {
         }
         
         vector<string> customers = line.get_all_customers(); // get all customers in the line
-        for (size_t i = 1; i < customers.size(); i++) { // start from 1 to skip the front customer
+        for (size_t i = 0; i < customers.size(); i++) { // start from 1 to skip the front customer
             int prob = rand() % 100 + 1; // generate a random probability between 1 and 100
             if (prob <= 10) { // 10% chance a customer leaves the line
                 cout << "    " << customers[i] << " left the line" << endl; // print customer leaving the line
                 line.delete_customer(customers[i]); // remove customer from the line
             }
         }
- 
-
-return 0;
+  prob = rand() % 100 + 1; // generate a random probability between 1 and 100
+        if (prob <= 60) { // 60% chance a new customer arrives
+            string customer = names[rand() % names.size()]; // select random name from the list
+            cout << "    " << customer << " joins the line" << endl;    // print customer joining the line
+            line.push_back(customer); // add customer to the end of the line
+        }
+        
+        if (!line.is_empty()) { // check if the line is not empty
+            prob = rand() % 100 + 1;    // generate a random probability between 1 and 100
+            if (prob <= 20) {
+                string customer = line.get_back(); // get the rear customer
+                cout << "    " << customer << " (at the rear) left the line" << endl;   // print rear customer leaving the line
+                line.pop_back();    // remove rear customer from the line
+            }
+        }
+        
+        cout << "    Resulting line:" << endl;  
+        line.print();
+        cout << endl;
+    }
+    
+    return 0;
 }
