@@ -56,6 +56,79 @@ size = 0;
         size++; 
     }
 
+        void pop_front() { // function for removing a node from the front
+        if (!head) { // check if the list is empty
+            return; 
+        }
+        Node* temp = head;  // stores current head
+        if (head->next) {  // if theres more than one node
+            head = head->next; // we will update head to next node
+            head->prev = nullptr;  // prev will be set to null
+        } else {
+            head = tail = nullptr; // eles head and tail will be null
+        }
+        delete temp; // free memory for the old head
+        size--; 
+    } 
+
+     void pop_back() {  // function for removing a node from the back
+        if (!tail) { // check if the list is empty
+            return;
+        }
+        Node* temp = tail; // store current tail
+        if (tail->prev) { // if theres more than one node
+            tail = tail->prev; // update tail to previous node
+            tail->next = nullptr; // next will be set to null
+        } else {
+            head = tail = nullptr; // else head and tail will be null
+        }
+        delete temp; // free memory for the old tail
+        size--;
+    }
+
+    string get_front() { // gets data from the front node
+        if (head) return head->data; // if head exists return its data
+        return ""; // 
+    }
+    
+    string get_back() {  // gets data from the back node
+        if (tail) return tail->data; // if tail exists return its data
+        return "";
+    }
+    
+    bool is_empty() { // this will check if the list is empty
+        return head == nullptr; // returns true if head is null
+    }
+    
+    int get_size() { // this will return the size of the list
+        return size;
+    }
+
+     void delete_customer(string name) { //this allows us to delete a customer by name
+        if (!head) return; // check if the list is empty 
+        Node* temp = head; // start from the head
+        while (temp && temp->data != name) { //traverses list to find node with the name we want to delete
+            temp = temp->next; // move to the next node
+        }
+        if (!temp) return; // if we dont find the name then we exit 
+        
+        if (temp->prev) {  // if node is not head
+            temp->prev->next = temp->next; // the previous node will point to the next node
+        } else {
+            head = temp->next; // if it is head we update the head to next node
+        }
+        
+        if (temp->next) { // if node is not tail
+            temp->next->prev = temp->prev; // the next node will point back to the previous node
+        } else {
+            tail = temp->prev; // if it is tail we update tail to previous node
+        }
+        
+        delete temp;  // free allocated memory for the node
+        size--;
+    }
+
+
 
 
 
