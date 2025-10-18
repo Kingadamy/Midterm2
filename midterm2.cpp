@@ -141,7 +141,7 @@ size = 0;
     void print() {  // function to print the list
             Node* current = head; // start from the head
             if (!current) { // if the list is empty
-                cout << "empty" << endl; // print empty message
+                cout << "        (empty)" << endl; // print empty message
                 return;
             }
             while (current) { // traverse the list
