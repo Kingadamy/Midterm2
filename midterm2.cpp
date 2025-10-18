@@ -44,6 +44,34 @@ size = 0;
         size++;
     }
 
+   void push_front(string v) { // function to add a node at the front
+        Node* newNode = new Node(v); // create a new node
+        if (!head) { // check if the list is empty
+            head = tail = newNode; // if it is empty head and tail will point to new node
+        } else { 
+            newNode->next = head; // link new node to the old head
+            head->prev = newNode; // link old head back to new node
+            head = newNode;  // update head to new node
+        }
+        size++; 
+    }
+
+        void pop_front() { // function for removing a node from the front
+        if (!head) { // check if the list is empty
+            return; 
+        }
+        Node* temp = head;  // stores current head
+        if (head->next) {  // if theres more than one node
+            head = head->next; // we will update head to next node
+            head->prev = nullptr;  // prev will be set to null
+        } else {
+            head = tail = nullptr; // eles head and tail will be null
+        }
+        delete temp; // free memory for the old head
+        size--; 
+    } 
+
+
 
 
 
