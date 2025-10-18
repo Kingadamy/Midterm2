@@ -204,7 +204,7 @@ int main() {
         }
         
         vector<string> customers = line.get_all_customers(); // get all customers in the line
-        for (size_t i = 0; i < customers.size(); i++) { // start from 1 to skip the front customer
+        for (size_t i = 1; i < customers.size(); i++) { // start from 1 to skip the front customer
             int prob = rand() % 100 + 1; // generate a random probability between 1 and 100
             if (prob <= 10) { // 10% chance a customer leaves the line
                 cout << "    " << customers[i] << " left the line" << endl; // print customer leaving the line
