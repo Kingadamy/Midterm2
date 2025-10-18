@@ -182,6 +182,34 @@ int main() {
     cout << "    Resulting line:" << endl;
     line.print(); // print the entire line
     cout << endl; 
+
+    for (int t = 2; t <= 20; t++) { // we need to simulate time steps from 2 to 20
+        cout << "Time step #" << t << ":" << endl; // print time step
+        
+        if (!line.is_empty()) { // check if the line is not empty
+            int prob = rand() % 100 + 1; // generate a random probability between 1 and 100
+            if (prob <= 40) { // 40% chance to serve the front customer
+                string customer = line.get_front(); // get the front customer
+                cout << "    " << customer << " is served" << endl; // print served customer
+                line.pop_front(); //remove custo from line once served
+            }
+        }
+        
+        int prob = rand() % 100 + 1; // generate a random probability between 1 and 100
+        if (prob <= 10) { // 10% chance a VIP customer arrives
+            string customer = names[rand() % names.size()]; // select random name from the list
+            cout << "    " << customer << " (VIP) joins the front of the line" << endl; // print VIP joining the line
+            line.push_front(customer); // add VIP customer to the front of the line
+        }
+        
+        vector<string> customers = line.get_all_customers(); // get all customers in the line
+        for (size_t i = 1; i < customers.size(); i++) { // start from 1 to skip the front customer
+            int prob = rand() % 100 + 1; // generate a random probability between 1 and 100
+            if (prob <= 10) { // 10% chance a customer leaves the line
+                cout << "    " << customers[i] << " left the line" << endl; // print customer leaving the line
+                line.delete_customer(customers[i]); // remove customer from the line
+            }
+        }
  
 
 return 0;
