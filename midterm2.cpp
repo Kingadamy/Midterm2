@@ -160,7 +160,29 @@ size = 0;
 
 
 int main() {
-cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS; // dummy statement to avoid compiler warning
+  srand(time(0));
+    
+    vector<string> names; // vector to store names from file
+    ifstream file("names.txt"); // open the names file
+    string name; //holds each name read from the file
+    while (file >> name) { // read names from the file
+        names.push_back(name); // add each name to the vector
+    }
+    file.close();  // close the file after reading
+    
+    DoublyLinkedList line; // create the line using doubly linked list
+
+     
+    cout << "Store opens:" << endl;
+    for (int i = 0; i < 5; i++) {  // 5 customers join the line
+        string customer = names[rand() % names.size()]; // select random name from the list
+        cout << "    " << customer << " joins the line" << endl; // blank joins the line
+        line.push_back(customer); // add customer to the end of the line
+    }
+    cout << "    Resulting line:" << endl;
+    line.print(); // print the entire line
+    cout << endl; 
+ 
 
 return 0;
 }
